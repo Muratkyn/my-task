@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import subtitlReducer from "../store/subtitle/subtitleStore.ts";
+import subtitlReducer from "./subtitle/index";
 
 const store = configureStore({
   reducer: {

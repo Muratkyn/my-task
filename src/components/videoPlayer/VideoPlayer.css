@@ -4,11 +4,55 @@
   align-items: center;
   justify-content: center;
   height: 700px;
-  width: 80%;
+  width: 90%;
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
   background-color: #f9f9f9;
   border-radius: 8px;
   padding: 1rem;
   position: relative;
+}
+
+.video-player {
+  border-radius: 8px;
+}
+
+.button-section {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.upload-button {
+  padding: 0.5rem 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: bold;
+}
+
+.upload-button:hover {
+  background: #0693e3;
+  color: white;
+}
+
+.video-player .react-player__subtitles {
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}
+
+.subtitle-overlay {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  font-size: 1.5rem;
+  text-align: center;
+  pointer-events: none;
 }
