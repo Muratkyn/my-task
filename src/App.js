@@ -18,9 +18,6 @@ function App() {
               <VideoPlayer />
             </div>
           </div>
-          <div className="table-content__wrapper">
-            <h2>Audio Waveform</h2>
-          </div>
         </div>
       </main>
     </div>
