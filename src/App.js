@@ -1,6 +1,6 @@
 import "./App.css";
-import SubtitleTable from "./components/subtitleTable/SubtitleTable";
-import VideoPlayer from "./components/videoPlayer/VideoPlayer";
+import SubtitleTable from "./components/subtitleTable/SubtitleTable.tsx";
+import VideoPlayer from "./components/videoPlayer/VideoPlayer.tsx";
 
 function App() {
   return (
