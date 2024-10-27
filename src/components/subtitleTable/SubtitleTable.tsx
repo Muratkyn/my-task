@@ -1,9 +1,11 @@
-import React from "react";
-import "./SubtitleTable.css";
-import { subtitleTable } from "../../constants/index";
 import { useDispatch, useSelector } from "react-redux";
+
 import { updateSubtitle } from "../../store/subtitle/index";
+import { formatTime, calculateDuration } from "../../helpers";
+
+import { subtitleTable } from "../../constants/index";
 import { RootState, SubtitleData } from "../../types/index";
+import "./SubtitleTable.css";
 
 const SubtitleTable = () => {
   const subtitles = useSelector(
@@ -17,18 +19,6 @@ const SubtitleTable = () => {
     value: string
   ) => {
     dispatch(updateSubtitle({ id, field, value }));
-  };
-
-  const formatTime = (time: string) => time.split(",")[0];
-
-  const formatDurationTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-      2,
-      "0"
-    )}:${String(secs).padStart(2, "0")}`;
   };
 
   return (
@@ -69,8 +59,9 @@ const SubtitleTable = () => {
             <div className="subtitle-cell">
               <input
                 className="subtitle-input"
-                value={formatDurationTime(
-                  subtitle.endSeconds - subtitle.startSeconds
+                value={calculateDuration(
+                  formatTime(subtitle.startTime),
+                  formatTime(subtitle.endTime)
                 )}
                 readOnly
               />
