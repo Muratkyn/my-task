@@ -1,29 +1,40 @@
 .subtitle-table {
-  height: 700px;
+  height: 732px;
   width: 90%;
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
   background-color: #f9f9f9;
   border-radius: 8px;
-  padding: 1rem;
-}
-
-.subtitle-header,
-.subtitle-row {
-  display: flex;
-  padding: 10px 0;
+  overflow: scroll;
+  position: relative;
 }
 
 .subtitle-header {
   font-weight: bold;
-  border-bottom: 2px solid #333;
   background-color: #eaeaea;
+  border-bottom: 2px solid #333;
+  position: sticky;
+  top: 0;
+  display: flex;
+  padding: 10px 1rem;
+}
+
+.subtitle-body {
+  max-height: 650px; 
+  overflow-y: auto; 
+  padding-top: 10px;
+}
+
+.subtitle-row {
+  display: flex;
+  padding: 10px 1rem;
 }
 
 .subtitle-cell {
   display: flex;
   padding: 4px;
   align-items: center;
+  overflow-y: hidden; 
 }
 
 .header-cell {
@@ -35,14 +46,8 @@
   text-align: center;
 }
 
-.subtitle-cell:nth-child(2) {
-  width: 15%;
-}
-
-.subtitle-cell:nth-child(3) {
-  width: 15%;
-}
-
+.subtitle-cell:nth-child(2),
+.subtitle-cell:nth-child(3),
 .subtitle-cell:nth-child(4) {
   width: 15%;
 }
@@ -52,24 +57,23 @@
 }
 
 .subtitle-input {
+  width: 100%;
   padding: 4px;
   border: none;
   border-radius: 4px;
   outline: none;
   background-color: #fff;
   font-size: 1rem;
-  color: inherit;
-  width: 100%;
 }
 
 .subtitle-input:focus {
-  outline: none;
   background-color: #f0f0f0;
 }
 
 .subtitle-row:hover {
   background-color: #f1f1f1;
 }
+
 .no-subtitles-message {
   display: flex;
   justify-content: center;
