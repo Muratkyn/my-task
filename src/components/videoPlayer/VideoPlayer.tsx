@@ -17,7 +17,6 @@ const VideoPlayer = () => {
   );
   const waveSurferRef = useRef<WaveSurfer | null>(null);
   const waveFormRef = useRef<string | HTMLElement>("");
-  const playerRef = useRef(null);
 
   const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const targetFile = (event.target as HTMLInputElement).files![0];
@@ -38,26 +37,35 @@ const VideoPlayer = () => {
     }
   };
 
-  const currentSubtitles = uploadedSubtitles.find((subtitle) => {
-    return (
-      playsSecond >= subtitle.startSeconds &&
-      playedSeconds <= subtitle.endSeconds
-    );
-  });
-  setCurrentSubtitle(currentSub ? currentSub.text : "");
-
   useEffect(() => {
-    if (videoFilePath && waveFormRef) {
+    if (videoFilePath && waveFormRef.current) {
       waveSurferRef.current = WaveSurfer.create({
-        container: waveFormRef.current,
+        container: waveFormRef.current as HTMLElement,
         waveColor: "#0693e3",
         progressColor: "#333",
         cursorColor: "#ff6347",
         barWidth: 2,
         height: 100,
       });
+      // wavesurfer instances
+      waveSurferRef.current.on(
+        "play",
+        () => {}
+        // playerRef.current?.getInternalPlayer().play()  //TODO fix ts
+      );
+      waveSurferRef.current.on(
+        "pause",
+        () => {}
+        // playerRef.current?.getInternalPlayer().pause() //TODO fix ts
+      );
+      waveSurferRef.current.load(videoFilePath as string);
+      waveSurferRef.current.setMuted(true);
     }
-    
+    return () => {
+      if (waveSurferRef.current) {
+        waveSurferRef.current.destroy();
+      }
+    };
   }, [videoFilePath]);
 
   return (
@@ -68,9 +76,9 @@ const VideoPlayer = () => {
             <ReactPlayer
               className="video-player"
               url={videoFilePath}
-              onProgress={handleProgress}
-              onPlay={() => waveSurfer.current?.play()}
-              onPause={() => Wavesurfer.current?.pause()}
+              // onProgress={handleProgress}
+              onPlay={() => waveSurferRef.current?.play()}
+              onPause={() => waveSurferRef.current?.pause()}
               width="100%"
               height="100%"
               controls
