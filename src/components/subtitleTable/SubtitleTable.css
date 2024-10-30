@@ -1,5 +1,5 @@
 .subtitle-table {
-  height: 732px;
+  height: 830px;
   width: 95%;
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
@@ -28,6 +28,7 @@
 .subtitle-row {
   display: flex;
   padding: 10px 1rem;
+  cursor: pointer;
 }
 
 .subtitle-cell {
@@ -86,4 +87,8 @@
 
 .subtitle-row.active {
   background-color: #37be83; /* A light blue color */
+}
+
+.subtitle-input.highlight {
+  background-color: yellow;
 }

@@ -25,3 +25,7 @@ export type UpdatedSubtitleData<T extends keyof SubtitleData> = {
   field: T;
   value: SubtitleData[T];
 };
+
+export type VideoPlayerProps = {
+  searchTime: number | null;
+};
