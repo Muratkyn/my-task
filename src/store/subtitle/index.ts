@@ -36,6 +36,7 @@ const subtitleSlice = createSlice({
       );
       if (subtitle) {
         subtitle[field] = value;
+        console.log(`Updated subtitle ${id} field ${field} to ${value}`);
       }
     },
   },
