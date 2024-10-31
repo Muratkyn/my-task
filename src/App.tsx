@@ -1,3 +1,4 @@
+// App.js
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
 import SubtitleTable from "./components/subtitleTable/SubtitleTable";
@@ -6,12 +7,17 @@ import ReactPlayer from "react-player";
 
 function App() {
   const [searchTime, setSearchTime] = useState<number | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const videoPlayerRef = useRef<ReactPlayer | null>(null);
 
   const handleSubtitleClick = (startSeconds: number) => {
     setSearchTime(startSeconds);
+  };
+
+  const handleActiveSubtitleChange = (index: number | null) => {
+    if (index !== null) {
+      setActiveIndex(index);
+    }
   };
 
   useEffect(() => {
@@ -36,7 +42,10 @@ function App() {
             </div>
             <div className="content__wrapper">
               <h2>Video Player</h2>
-              <VideoPlayer searchTime={searchTime} />
+              <VideoPlayer 
+                searchTime={searchTime} 
+                onActiveSubtitleChange={handleActiveSubtitleChange} // Pass the function to update active index
+              />
             </div>
           </div>
         </div>
