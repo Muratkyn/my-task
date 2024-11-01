@@ -69,9 +69,11 @@ const VideoPlayer = forwardRef(
 
     const handleWaveSurferProgress = (event: React.MouseEvent) => {
       const { offsetX } = event.nativeEvent;
+      console.log(offsetX, "offSet....");
       const duration = waveSurferRef.current?.getDuration();
       if (duration && waveFormRef.current) {
         const newTime = (offsetX / waveFormRef.current.offsetWidth) * duration;
+        console.log(newTime, "newTime....");
         playerRef.current?.seekTo(newTime);
         waveSurferRef.current!.seekTo(newTime / duration);
       }
@@ -85,10 +87,10 @@ const VideoPlayer = forwardRef(
 
     useEffect(() => {
       if (uploadedSubtitles && uploadedSubtitles.length > 0) {
-        const currentTime = playerRef.current?.getCurrentTime() || 0;
+        const currentTime = playerRef.current?.getCurrentTime();
         const currentSubtitle = uploadedSubtitles.find(
           (sub) =>
-            currentTime >= sub.startSeconds && currentTime <= sub.endSeconds
+            currentTime! >= sub.startSeconds && currentTime! <= sub.endSeconds
         );
         setCurrentSubtitle(currentSubtitle ? currentSubtitle.text : "");
       }
@@ -121,11 +123,13 @@ const VideoPlayer = forwardRef(
       };
     }, [videoFilePath]);
 
+    //sync waveform based on playingseconds..
     useEffect(() => {
-      if (waveSurferRef.current) {
-        waveSurferRef.current.seekTo(
-          playedSeconds / (playerRef.current?.getDuration() || 1)
-        );
+      const duration = playerRef.current?.getDuration();
+      if (duration && duration > 0) {
+        waveSurferRef.current!.seekTo(playedSeconds / duration);
+      } else {
+        console.warn("Invalid video duration, Please add a video");
       }
     }, [playedSeconds]);
 

@@ -34,3 +34,20 @@
   justify-content: center;
   flex-direction: column;
 }
+
+button {
+  padding: 8px 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: bold;
+  margin: 0.5rem;
+}
+
+button:hover {
+  background: #12bc48;
+  color: white;
+}

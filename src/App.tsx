@@ -1,4 +1,3 @@
-// App.js
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
 import SubtitleTable from "./components/subtitleTable/SubtitleTable";
