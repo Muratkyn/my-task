@@ -1,12 +1,19 @@
 .subtitle-table {
   height: 830px;
-  width: 95%;
+  width: 100%;
+  min-width: 300px;
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
   background-color: #f9f9f9;
   border-radius: 8px;
   overflow: scroll;
   position: relative;
+}
+
+@media (max-width: 768px) {
+  .subtitle-table {
+    font-size: 0.9rem;
+  }
 }
 
 .subtitle-header {
@@ -16,7 +23,23 @@
   position: sticky;
   top: 0;
   display: flex;
-  padding: 10px 1rem;
+  padding: 10px 0;
+}
+
+.subtitle-header .header-cell:nth-child(1),
+.subtitle-header .header-cell:nth-child(3) {
+  width: 5%;
+}
+.subtitle-header .header-cell:nth-child(2) {
+  width: 9%;
+}
+
+.subtitle-header .header-cell:nth-child(4) {
+  width: 22%;
+}
+.subtitle-header .header-cell:nth-child(5),
+.subtitle-header .header-cell:nth-child(6) {
+  width: 12%;
 }
 
 .subtitle-body {
@@ -27,40 +50,40 @@
 
 .subtitle-row {
   display: flex;
-  padding: 10px 1rem;
+  padding: 10px 0;
   cursor: pointer;
 }
 
 .subtitle-cell {
-  display: flex;
   padding: 4px;
   align-items: center;
   overflow-y: hidden;
-}
-
-.header-cell {
-  text-align: left;
-}
-
-.subtitle-cell:first-child {
-  width: 3%;
+  display: flex;
+  justify-content: center;
   text-align: center;
 }
 
-.subtitle-cell:nth-child(2),
+.subtitle-cell:nth-child(1) {
+  width: 5%;
+}
+.subtitle-cell:nth-child(2) {
+  width: 10%;
+}
 .subtitle-cell:nth-child(3),
-.subtitle-cell:nth-child(4) {
+.subtitle-cell:nth-child(4),
+.subtitle-cell:nth-child(5) {
   width: 15%;
 }
 
-.subtitle-cell:last-child {
-  flex: 3;
+.subtitle-cell:nth-child(6) {
+  width: 40%;
+  text-align: left;
 }
 
 .subtitle-input {
   width: 100%;
   padding: 4px;
-  border: none;
+  border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
   background-color: #fff;
@@ -86,5 +109,21 @@
 }
 
 .subtitle-row.highlight {
-  background-color: lightblue; 
+  background-color: lightblue;
+}
+
+button {
+  padding: 4px 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #12bc48;
+  color: white;
 }

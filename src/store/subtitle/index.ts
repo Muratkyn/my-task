@@ -39,8 +39,28 @@ const subtitleSlice = createSlice({
         console.log(`Updated subtitle ${id} field ${field} to ${value}`);
       }
     },
+    mergeSubtitles: (
+      state,
+      action: PayloadAction<{
+        id1: string;
+        id2: string;
+        mergedSubtitle: SubtitleData;
+      }>
+    ) => {
+      const { id1, id2, mergedSubtitle } = action.payload;
+
+      state.parsedSubtitles = state.parsedSubtitles.filter(
+        (sub) => sub.id !== id1 && sub.id !== id2
+      );
+
+      state.parsedSubtitles.push(mergedSubtitle);
+      console.log(
+        `Merged subtitles ${id1} and ${id2} into new subtitle with id ${mergedSubtitle.id}`
+      );
+    },
   },
 });
 
-export const { setSubtitle, updateSubtitle } = subtitleSlice.actions;
+export const { setSubtitle, updateSubtitle, mergeSubtitles } =
+  subtitleSlice.actions;
 export default subtitleSlice.reducer;

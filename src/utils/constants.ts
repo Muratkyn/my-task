@@ -7,18 +7,22 @@ export const subtitleTable: SubtitleTable[] = [
   },
   {
     id: 2,
-    value: "Start",
+    value: "Id",
   },
   {
     id: 3,
-    value: "End",
+    value: "Start",
   },
   {
     id: 4,
-    value: "Duration(s)",
+    value: "End",
   },
   {
     id: 5,
+    value: "Duration(s)",
+  },
+  {
+    id: 6,
     value: "Text",
   },
 ];
