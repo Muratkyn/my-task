@@ -103,8 +103,35 @@ const SubtitleTable = ({
     });
   };
 
+  const handleDeleteSelected = () => {
+    const updatedSubtitles = localSubtitles.filter(
+      (sub) => !selectedSubtitles.includes(sub.id)
+    );
+
+    setLocalSubtitles(updatedSubtitles);
+    setSelectedSubtitles([]);
+  };
+
   return (
     <div className="subtitle-table">
+      {localSubtitles.length > 0 ? (
+        <div>
+          <button
+            className="merge-button"
+            onClick={handleMergeSelected}
+            disabled={selectedSubtitles.length < 2}
+          >
+            Merge Lines
+          </button>
+          <button
+            onClick={handleDeleteSelected}
+            disabled={selectedSubtitles.length === 0}
+            className="delete-button"
+          >
+            Delete Lines
+          </button>
+        </div>
+      ) : null}
       <div className="subtitle-header">
         {subtitleTable.map((title: any) => (
           <div key={title.id} className="subtitle-cell header-cell">
@@ -112,14 +139,8 @@ const SubtitleTable = ({
           </div>
         ))}
         <br></br>
-        <button
-          className="merge-button"
-          onClick={handleMergeSelected}
-          disabled={selectedSubtitles.length < 2}
-        >
-          Merge
-        </button>
       </div>
+
       {localSubtitles.length === 0 ? (
         <div className="no-subtitles-message">
           The subtitles will be shown here..

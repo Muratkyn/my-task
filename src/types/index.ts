@@ -28,5 +28,5 @@ export type UpdatedSubtitleData<T extends keyof SubtitleData> = {
 
 export type VideoPlayerProps = {
   searchTime: number | null;
-  onActiveSubtitleChange: (index: number | null) => void; // Add this line
+  onActiveSubtitleChange: (index: number | null) => void;
 };
