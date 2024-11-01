@@ -42,8 +42,8 @@ function App() {
             </div>
             <div className="content__wrapper">
               <h2>Video Player</h2>
-              <VideoPlayer 
-                searchTime={searchTime} 
+              <VideoPlayer
+                searchTime={searchTime}
                 onActiveSubtitleChange={handleActiveSubtitleChange} // Pass the function to update active index
               />
             </div>

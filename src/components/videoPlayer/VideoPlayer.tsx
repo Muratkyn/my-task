@@ -14,10 +14,11 @@ const VideoPlayer = forwardRef(
     const waveSurferRef = useRef<WaveSurfer | null>(null);
     const waveFormRef = useRef<HTMLDivElement | null>(null);
     const playerRef = useRef<ReactPlayer | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [activeSubtitleIndex, setActiveSubtitleIndex] = useState<
       number | null
     >(null);
-    const [playedSeconds, setPlayedSeconds] = useState<number>(0); // New state to track played seconds
+    const [playedSeconds, setPlayedSeconds] = useState<number>(0);
 
     const dispatch = useDispatch();
     const uploadedSubtitles = useSelector(
@@ -102,8 +103,6 @@ const VideoPlayer = forwardRef(
           cursorColor: "#ff6347",
           barWidth: 2,
           height: 100,
-          minPxPerSec: 1,
-          dragToSeek: true,
         });
 
         waveSurferRef.current.on("play", () =>
@@ -126,7 +125,7 @@ const VideoPlayer = forwardRef(
       if (waveSurferRef.current) {
         waveSurferRef.current.seekTo(
           playedSeconds / (playerRef.current?.getDuration() || 1)
-        ); // Sync cursor with playedSeconds
+        );
       }
     }, [playedSeconds]);
 
