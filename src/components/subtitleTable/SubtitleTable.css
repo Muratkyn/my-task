@@ -1,14 +1,13 @@
-
 :root {
-  --dark-bg: #1e1e2f;           
-  --light-bg: #2b2b3b;          
-  --accent-blue: #4a90e2;      
-  --text-light: #e0e0e0;        
-  --highlight-blue: lightblue;  
+  --dark-bg: #1e1e2f;
+  --light-bg: #2b2b3b;
+  --accent-blue: #4a90e2;
+  --text-light: #e0e0e0;
+  --highlight-blue: lightblue;
   --header-bg: #333;
   --header-border: #4a4a5a;
   --input-bg: #3c3c4f;
-  --hover-bg: #3a3a4a;         
+  --hover-bg: #3a3a4a;
   --no-subtitle-text: #777;
   --delete-hover-bg: rgb(221, 72, 72);
 }
@@ -132,4 +131,8 @@
 
 .delete-button:hover {
   background-color: var(--delete-hover-bg);
+}
+
+.merge-button:hover {
+  background-color: rgb(40, 203, 40);
 }
