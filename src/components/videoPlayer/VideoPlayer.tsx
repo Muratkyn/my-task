@@ -52,14 +52,14 @@ const VideoPlayer = forwardRef(
     }: {
       playedSeconds: number;
     }) => {
-      setPlayedSeconds(playedSeconds); // Update playedSeconds for WaveSurfer sync
+      setPlayedSeconds(playedSeconds); 
 
       const currentSub = uploadedSubtitles.find((sub, index) => {
         const isActive =
           playedSeconds >= sub.startSeconds && playedSeconds <= sub.endSeconds;
         if (isActive) {
-          setActiveSubtitleIndex(index); // Update the active subtitle index
-          onActiveSubtitleChange(index); // Pass the active index to the parent
+          setActiveSubtitleIndex(index); 
+          onActiveSubtitleChange(index); 
         }
         return isActive;
       });
@@ -123,7 +123,6 @@ const VideoPlayer = forwardRef(
       };
     }, [videoFilePath]);
 
-    //sync waveform based on playingseconds..
     useEffect(() => {
       const duration = playerRef.current?.getDuration();
       if (duration && duration > 0) {

@@ -1,10 +1,26 @@
+
+:root {
+  --dark-bg: #1e1e2f;           
+  --light-bg: #2b2b3b;          
+  --accent-blue: #4a90e2;      
+  --text-light: #e0e0e0;        
+  --highlight-blue: lightblue;  
+  --header-bg: #333;
+  --header-border: #4a4a5a;
+  --input-bg: #3c3c4f;
+  --hover-bg: #3a3a4a;         
+  --no-subtitle-text: #777;
+  --delete-hover-bg: rgb(221, 72, 72);
+}
+
 .subtitle-table {
   height: 830px;
   width: 100%;
   min-width: 300px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-  background-color: #f9f9f9;
+  border: 1px solid var(--accent-blue);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: var(--light-bg);
+  color: var(--text-light);
   border-radius: 8px;
   overflow: scroll;
   position: relative;
@@ -18,12 +34,13 @@
 
 .subtitle-header {
   font-weight: bold;
-  background-color: #eaeaea;
-  border-bottom: 2px solid #333;
+  background-color: var(--header-bg);
+  border-bottom: 2px solid var(--header-border);
   position: sticky;
   top: 0;
   display: flex;
   padding: 10px 0;
+  color: var(--text-light);
 }
 
 .subtitle-header .header-cell:nth-child(1),
@@ -33,7 +50,6 @@
 .subtitle-header .header-cell:nth-child(2) {
   width: 9%;
 }
-
 .subtitle-header .header-cell:nth-child(4) {
   width: 22%;
 }
@@ -52,6 +68,7 @@
   display: flex;
   padding: 10px 0;
   cursor: pointer;
+  color: var(--text-light);
 }
 
 .subtitle-cell {
@@ -83,19 +100,20 @@
 .subtitle-input {
   width: 100%;
   padding: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--header-border);
   border-radius: 4px;
   outline: none;
-  background-color: #fff;
+  background-color: var(--input-bg);
+  color: var(--text-light);
   font-size: 1rem;
 }
 
 .subtitle-input:focus {
-  background-color: #f0f0f0;
+  background-color: var(--hover-bg);
 }
 
 .subtitle-row:hover {
-  background-color: #f1f1f1;
+  background-color: var(--hover-bg);
 }
 
 .no-subtitles-message {
@@ -104,14 +122,14 @@
   align-items: center;
   height: 100%;
   font-size: 1.2rem;
-  color: #777;
+  color: var(--no-subtitle-text);
   text-align: center;
 }
 
 .subtitle-row.highlight {
-  background-color: lightblue;
+  background-color: var(--highlight-blue);
 }
 
 .delete-button:hover {
-  background-color: rgb(221, 72, 72);
+  background-color: var(--delete-hover-bg);
 }
