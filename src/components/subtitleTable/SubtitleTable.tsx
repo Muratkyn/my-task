@@ -4,7 +4,11 @@ import { formatTime, calculateDuration } from "../../utils/helpers";
 import { subtitleTable } from "../../utils/constants";
 import { RootState, SubtitleData } from "../../types/index";
 import "./SubtitleTable.css";
-import { updateSubtitle } from "../../store/subtitle";
+import {
+  deleteSubtitle,
+  updateSubtitle,
+  mergeSubtitles,
+} from "../../store/subtitle";
 
 const SubtitleTable = ({
   activeIndex,
@@ -14,51 +18,25 @@ const SubtitleTable = ({
   onSubtitleClick: (startSeconds: number) => void;
 }) => {
   const dispatch = useDispatch();
-  const subtitles = useSelector(
+  const storedSubtitles = useSelector(
     (state: RootState) => state.subtitle.parsedSubtitles
   );
   const [localSubtitles, setLocalSubtitles] =
-    useState<SubtitleData[]>(subtitles);
+    useState<SubtitleData[]>(storedSubtitles);
   const [selectedSubtitles, setSelectedSubtitles] = useState<string[]>([]);
 
   useEffect(() => {
-    setLocalSubtitles(subtitles);
-  }, [subtitles]);
-
-  const mergeSubtitles = (selectedIds: string[]): SubtitleData | null => {
-    const selected = localSubtitles.filter((sub) =>
-      selectedIds.includes(sub.id)
-    );
-    if (selected.length < 2) return null;
-
-    selected.sort((a, b) => a.startSeconds - b.startSeconds);
-
-    const mergedSubtitle = {
-      ...selected[0],
-      text: selected.map((s) => s.text).join(" "),
-      startTime: selected[0].startTime,
-      endTime: selected[selected.length - 1].endTime,
-      startSeconds: selected[0].startSeconds,
-      endSeconds: selected[selected.length - 1].endSeconds,
-    };
-
-    return mergedSubtitle;
-  };
+    setLocalSubtitles(storedSubtitles);
+  }, [storedSubtitles]);
 
   const handleMergeSelected = () => {
-    const mergedSubtitle = mergeSubtitles(selectedSubtitles);
-    if (!mergedSubtitle) return;
-
-    const updatedSubtitles = localSubtitles.filter(
-      (sub) => !selectedSubtitles.includes(sub.id)
+    if (selectedSubtitles.length < 2) return;
+    dispatch(
+      mergeSubtitles({
+        selectedIds: selectedSubtitles,
+      })
     );
 
-    const firstSelectedIndex = localSubtitles.findIndex((sub) =>
-      selectedSubtitles.includes(sub.id)
-    );
-    updatedSubtitles.splice(firstSelectedIndex, 0, mergedSubtitle);
-
-    setLocalSubtitles(updatedSubtitles);
     setSelectedSubtitles([]);
   };
 
@@ -72,7 +50,7 @@ const SubtitleTable = ({
       return (hours || 0) * 3600 + (minutes || 0) * 60 + (seconds || 0);
     };
 
-    const subtitle = subtitles.find((sub) => sub.id === id);
+    const subtitle = storedSubtitles.find((sub) => sub.id === id);
     if (!subtitle) return;
 
     const currentStartTime = timeToSeconds(formatTime(subtitle.startTime));
@@ -83,7 +61,7 @@ const SubtitleTable = ({
       if (newStartTime >= currentEndTime) return;
 
       if (newStartTime !== currentStartTime) {
-        onSubtitleClick(newStartTime);
+        onSubtitleClick(newStartTime); ///why we need this function from the parent?
       }
     } else if (field === "endTime") {
       const newEndTime = timeToSeconds(value);
@@ -104,18 +82,15 @@ const SubtitleTable = ({
   };
 
   const handleDeleteSelected = () => {
-    const updatedSubtitles = localSubtitles.filter(
-      (sub) => !selectedSubtitles.includes(sub.id)
-    );
-
-    setLocalSubtitles(updatedSubtitles);
-    setSelectedSubtitles([]);
+    selectedSubtitles.forEach((id) => {
+      dispatch(deleteSubtitle({ id }));
+    });
   };
 
   return (
     <div className="subtitle-table">
       {localSubtitles.length > 0 ? (
-        <div>
+        <div className="subtitle-header">
           <button
             className="merge-button"
             onClick={handleMergeSelected}
@@ -133,7 +108,7 @@ const SubtitleTable = ({
         </div>
       ) : null}
       <div className="subtitle-header">
-        {subtitleTable.map((title: any) => (
+        {subtitleTable.map((title) => (
           <div key={title.id} className="subtitle-cell header-cell">
             {title.value}
           </div>

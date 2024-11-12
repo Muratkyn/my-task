@@ -35,6 +35,16 @@
   font-weight: bold;
   background-color: var(--header-bg);
   border-bottom: 2px solid var(--header-border);
+
+  top: 0;
+  display: flex;
+  padding: 10px 0;
+  color: var(--text-light);
+}
+.button-header {
+  font-weight: bold;
+  background-color: var(--header-bg);
+  border-bottom: 2px solid var(--header-border);
   position: sticky;
   top: 0;
   display: flex;
@@ -127,6 +137,26 @@
 
 .subtitle-row.highlight {
   background-color: var(--highlight-blue);
+}
+
+.merge-button,
+.delete-button {
+  padding: 0.5rem 1rem;
+  margin: 4px;
+  background-color: #cccccc;
+  color: var(--dark-bg);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+.merge-button:disabled,
+.delete-button:disabled {
+  background-color: rgba(117, 111, 111, 0.7);
+  border: #666666;
+  color: #fff;
+  cursor: not-allowed;
 }
 
 .delete-button:hover {

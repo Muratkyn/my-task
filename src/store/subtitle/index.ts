@@ -6,6 +6,7 @@ import type {
 } from "../../types/index.ts";
 import Parser from "srt-parser-2";
 
+
 const initialState = { file: "", parsedSubtitles: [] as SubtitleData[] };
 
 const subtitleSlice = createSlice({
@@ -41,26 +42,52 @@ const subtitleSlice = createSlice({
     },
     mergeSubtitles: (
       state,
-      action: PayloadAction<{
-        id1: string;
-        id2: string;
-        mergedSubtitle: SubtitleData;
-      }>
+      action: PayloadAction<{ selectedIds: string[] }>
     ) => {
-      const { id1, id2, mergedSubtitle } = action.payload;
+      const { selectedIds } = action.payload;
+      const selectedSubtitles = state.parsedSubtitles.filter((sub) =>
+        selectedIds.includes(sub.id)
+      );
+
+      if (selectedSubtitles.length < 2) return;
+
+      selectedSubtitles.sort((a, b) => a.startSeconds - b.startSeconds);
+
+      const mergedSubtitle: SubtitleData = {
+        id: `${Date.now()}`,
+        text: selectedSubtitles.map((s) => s.text).join(" "),
+        startTime: selectedSubtitles[0].startTime,
+        endTime: selectedSubtitles[selectedSubtitles.length - 1].endTime,
+        startSeconds: selectedSubtitles[0].startSeconds,
+        endSeconds: selectedSubtitles[selectedSubtitles.length - 1].endSeconds,
+      };
+
+      const firstSelectedIndex = state.parsedSubtitles.findIndex(
+        (sub) => sub.id === selectedSubtitles[0].id
+      );
 
       state.parsedSubtitles = state.parsedSubtitles.filter(
-        (sub) => sub.id !== id1 && sub.id !== id2
+        (sub) => !selectedIds.includes(sub.id)
       );
 
-      state.parsedSubtitles.push(mergedSubtitle);
+      state.parsedSubtitles.splice(firstSelectedIndex, 0, mergedSubtitle);
+
       console.log(
-        `Merged subtitles ${id1} and ${id2} into new subtitle with id ${mergedSubtitle.id}`
+        `Merged subtitles into new subtitle with id ${mergedSubtitle.id}`
       );
+    },
+
+    deleteSubtitle: (state, action) => {
+      const { id } = action.payload;
+
+      state.parsedSubtitles = state.parsedSubtitles.filter(
+        (sub) => sub.id !== id
+      );
+      console.log("deleted the state", state.parsedSubtitles);
     },
   },
 });
 
-export const { setSubtitle, updateSubtitle, mergeSubtitles } =
+export const { setSubtitle, updateSubtitle, mergeSubtitles, deleteSubtitle } =
   subtitleSlice.actions;
 export default subtitleSlice.reducer;

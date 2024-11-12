@@ -21,7 +21,6 @@ function App() {
 
   useEffect(() => {
     if (searchTime !== null && videoPlayerRef.current) {
-      console.log("Searching for.......", searchTime);
       videoPlayerRef.current.seekTo(searchTime);
     }
   }, [searchTime]);
@@ -43,7 +42,7 @@ function App() {
               <h2>Video Player</h2>
               <VideoPlayer
                 searchTime={searchTime}
-                onActiveSubtitleChange={handleActiveSubtitleChange} // Pass the function to update active index
+                onActiveSubtitleChange={handleActiveSubtitleChange}
               />
             </div>
           </div>
