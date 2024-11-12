@@ -14,6 +14,7 @@ const VideoPlayer = forwardRef(
     const waveSurferRef = useRef<WaveSurfer | null>(null);
     const waveFormRef = useRef<HTMLDivElement | null>(null);
     const playerRef = useRef<ReactPlayer | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [activeSubtitleIndex, setActiveSubtitleIndex] = useState<
       number | null
     >(null);
