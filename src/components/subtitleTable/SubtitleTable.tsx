@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   formatTime,
   calculateDuration,
-  timeToSeconds,
+  convertToSeconds,
 } from "../../utils/helpers";
 import { subtitleTable } from "../../utils/constants";
 import { RootState, SubtitleData } from "../../types/index";
@@ -53,18 +53,18 @@ const SubtitleTable = ({
     const subtitle = storedSubtitles.find((sub) => sub.id === id);
     if (!subtitle) return;
 
-    const currentStartTime = timeToSeconds(formatTime(subtitle.startTime));
-    const currentEndTime = timeToSeconds(formatTime(subtitle.endTime));
+    const currentStartTime = convertToSeconds(formatTime(subtitle.startTime));
+    const currentEndTime = convertToSeconds(formatTime(subtitle.endTime));
 
     if (field === "startTime") {
-      const newStartTime = timeToSeconds(value);
+      const newStartTime = convertToSeconds(value);
       if (newStartTime >= currentEndTime) return;
 
       if (newStartTime !== currentStartTime) {
         onSubtitleClick(newStartTime);
       }
     } else if (field === "endTime") {
-      const newEndTime = timeToSeconds(value);
+      const newEndTime = convertToSeconds(value);
       if (newEndTime <= currentStartTime) return;
     }
 

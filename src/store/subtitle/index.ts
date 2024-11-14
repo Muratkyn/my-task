@@ -48,7 +48,7 @@ const subtitleSlice = createSlice({
       const selectedSubtitles = state.parsedSubtitles.filter((sub) =>
         selectedIds.includes(sub.id)
       );
-      console.log(selectedSubtitles, "selected ones");
+      // console.log("selected subtitles", selectedSubtitles,);
 
       selectedSubtitles.sort((a, b) => a.startSeconds - b.startSeconds);
 
@@ -68,13 +68,13 @@ const subtitleSlice = createSlice({
       state.parsedSubtitles = state.parsedSubtitles.filter(
         (sub) => !selectedIds.includes(sub.id)
       );
-      console.log("state change", state.parsedSubtitles);
+      // console.log("state change", state.parsedSubtitles);
 
       state.parsedSubtitles.splice(firstSelectedIndex, 0, mergedSubtitle);
 
-      console.log(
-        `Merged subtitles into new subtitle with id: "${mergedSubtitle.id}"`
-      );
+      // console.log(
+      //   `Merged subtitles into new subtitle with id: "${mergedSubtitle.id}"`
+      // );
     },
 
     deleteSubtitle: (state, action) => {
@@ -83,7 +83,6 @@ const subtitleSlice = createSlice({
       state.parsedSubtitles = state.parsedSubtitles.filter(
         (sub) => sub.id !== id
       );
-      console.log("deleted the state", state.parsedSubtitles);
     },
   },
 });

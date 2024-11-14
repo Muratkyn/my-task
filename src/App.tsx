@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import SubtitleTable from "./components/subtitleTable/SubtitleTable";
 import VideoPlayer from "./components/videoPlayer/VideoPlayer";
 

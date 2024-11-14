@@ -1,10 +1,5 @@
 export const formatTime = (time: string) => time.split(",")[0];
 
-export const timeToSeconds = (time: string) => {
-  const [hours, minutes, seconds] = time.split(":").map(Number);
-  return (hours || 0) * 3600 + (minutes || 0) * 60 + (seconds || 0);
-};
-
 export const formatDurationTime = (seconds: number) => {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
