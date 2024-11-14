@@ -1,12 +1,11 @@
-
 :root {
-  --dark-bg: #1e1e2f;           
-  --light-bg: #2b2b3b;          
-  --accent-blue: #4a90e2;       
-  --accent-green: #34d399;      
-  --text-light: #e0e0e0;        
-  --error-red: #e22626;         
-  --button-hover-blue: #0693e3; 
+  --dark-bg: #1e1e2f;
+  --light-bg: #2b2b3b;
+  --accent-blue: #4a90e2;
+  --accent-green: #34d399;
+  --text-light: #e0e0e0;
+  --error-red: #e22626;
+  --button-hover-blue: #0693e3;
 }
 
 .videoPlayer-table {

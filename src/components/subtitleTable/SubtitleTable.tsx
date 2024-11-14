@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatTime, calculateDuration } from "../../utils/helpers";
+import {
+  formatTime,
+  calculateDuration,
+  timeToSeconds,
+} from "../../utils/helpers";
 import { subtitleTable } from "../../utils/constants";
 import { RootState, SubtitleData } from "../../types/index";
 import "./SubtitleTable.css";
@@ -21,13 +25,14 @@ const SubtitleTable = ({
   const storedSubtitles = useSelector(
     (state: RootState) => state.subtitle.parsedSubtitles
   );
-  const [localSubtitles, setLocalSubtitles] =
-    useState<SubtitleData[]>(storedSubtitles);
+  const [localSubtitles, setLocalSubtitles] = useState<SubtitleData[]>([]);
   const [selectedSubtitles, setSelectedSubtitles] = useState<string[]>([]);
 
+  const cachedSubtitles = useMemo(() => storedSubtitles, [storedSubtitles]);
+
   useEffect(() => {
-    setLocalSubtitles(storedSubtitles);
-  }, [storedSubtitles]);
+    setLocalSubtitles(cachedSubtitles);
+  }, [cachedSubtitles]);
 
   const handleMergeSelected = () => {
     if (selectedSubtitles.length < 2) return;
@@ -45,11 +50,6 @@ const SubtitleTable = ({
     field: keyof SubtitleData,
     value: string
   ) => {
-    const timeToSeconds = (time: string) => {
-      const [hours, minutes, seconds] = time.split(":").map(Number);
-      return (hours || 0) * 3600 + (minutes || 0) * 60 + (seconds || 0);
-    };
-
     const subtitle = storedSubtitles.find((sub) => sub.id === id);
     if (!subtitle) return;
 
@@ -61,7 +61,7 @@ const SubtitleTable = ({
       if (newStartTime >= currentEndTime) return;
 
       if (newStartTime !== currentStartTime) {
-        onSubtitleClick(newStartTime); ///why we need this function from the parent?
+        onSubtitleClick(newStartTime);
       }
     } else if (field === "endTime") {
       const newEndTime = timeToSeconds(value);
@@ -90,7 +90,7 @@ const SubtitleTable = ({
   return (
     <div className="subtitle-table">
       {localSubtitles.length > 0 ? (
-        <div className="subtitle-header">
+        <div className="button-header">
           <button
             className="merge-button"
             onClick={handleMergeSelected}

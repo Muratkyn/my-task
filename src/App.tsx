@@ -2,28 +2,22 @@ import "./App.css";
 import { useState, useEffect, useRef } from "react";
 import SubtitleTable from "./components/subtitleTable/SubtitleTable";
 import VideoPlayer from "./components/videoPlayer/VideoPlayer";
-import ReactPlayer from "react-player";
 
 function App() {
   const [searchTime, setSearchTime] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const videoPlayerRef = useRef<ReactPlayer | null>(null);
 
   const handleSubtitleClick = (startSeconds: number) => {
+    console.log(startSeconds, "start");
     setSearchTime(startSeconds);
   };
 
   const handleActiveSubtitleChange = (index: number | null) => {
     if (index !== null) {
+      console.log("index", index);
       setActiveIndex(index);
     }
   };
-
-  useEffect(() => {
-    if (searchTime !== null && videoPlayerRef.current) {
-      videoPlayerRef.current.seekTo(searchTime);
-    }
-  }, [searchTime]);
 
   return (
     <div>

@@ -6,7 +6,6 @@ import type {
 } from "../../types/index.ts";
 import Parser from "srt-parser-2";
 
-
 const initialState = { file: "", parsedSubtitles: [] as SubtitleData[] };
 
 const subtitleSlice = createSlice({
@@ -45,16 +44,16 @@ const subtitleSlice = createSlice({
       action: PayloadAction<{ selectedIds: string[] }>
     ) => {
       const { selectedIds } = action.payload;
+
       const selectedSubtitles = state.parsedSubtitles.filter((sub) =>
         selectedIds.includes(sub.id)
       );
-
-      if (selectedSubtitles.length < 2) return;
+      console.log(selectedSubtitles, "selected ones");
 
       selectedSubtitles.sort((a, b) => a.startSeconds - b.startSeconds);
 
       const mergedSubtitle: SubtitleData = {
-        id: `${Date.now()}`,
+        id: selectedSubtitles[0].id,
         text: selectedSubtitles.map((s) => s.text).join(" "),
         startTime: selectedSubtitles[0].startTime,
         endTime: selectedSubtitles[selectedSubtitles.length - 1].endTime,
@@ -69,11 +68,12 @@ const subtitleSlice = createSlice({
       state.parsedSubtitles = state.parsedSubtitles.filter(
         (sub) => !selectedIds.includes(sub.id)
       );
+      console.log("state change", state.parsedSubtitles);
 
       state.parsedSubtitles.splice(firstSelectedIndex, 0, mergedSubtitle);
 
       console.log(
-        `Merged subtitles into new subtitle with id ${mergedSubtitle.id}`
+        `Merged subtitles into new subtitle with id: "${mergedSubtitle.id}"`
       );
     },
 

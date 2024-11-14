@@ -11,6 +11,7 @@ const VideoPlayer = forwardRef(
   ({ searchTime, onActiveSubtitleChange }: VideoPlayerProps, ref) => {
     const [videoFilePath, setVideoFilePath] = useState<string | null>(null);
     const [currentSubtitle, setCurrentSubtitle] = useState("");
+
     const waveSurferRef = useRef<WaveSurfer | null>(null);
     const waveFormRef = useRef<HTMLDivElement | null>(null);
     const playerRef = useRef<ReactPlayer | null>(null);
@@ -69,12 +70,11 @@ const VideoPlayer = forwardRef(
 
     const handleWaveSurferProgress = (event: React.MouseEvent) => {
       const { offsetX } = event.nativeEvent;
-
+      console.log(offsetX, "offSetX");
       const duration = waveSurferRef.current?.getDuration();
       if (duration && waveFormRef.current) {
         const newTime = (offsetX / waveFormRef.current.offsetWidth) * duration;
         playerRef.current?.seekTo(newTime);
-        waveSurferRef.current!.seekTo(newTime / duration);
       }
     };
 
